@@ -19,9 +19,9 @@ const char *write_api_key = "36A4ZJ86OE08LHVQ";
 
 // Initializes the sensor and output
 rgb_lcd lcd;
-const int temperatureSensorPin = A0;  // Temperature sensor
-const int soilMoistureSensorPin = A1; // Soil moisture sensor
-const int lightSensorPin = A2;        // Light sensor
+const int temperatureSensorPin = A0;        //Temperature sensor 
+const int soilMoistureSensorPin = A1;  //Soil moisture sensor
+const int lightSensorPin = A2; //Light sensor
 const int buzzerPin = 2;              // buzzer
 const int fanPin = 3;                 // fan
 const int motorPin = 4;               // servo
@@ -106,7 +106,17 @@ void loop() {
   lcd.print(soilMoistureValue);
   lcd.print("  ");
   lcd.print("L: ");
-  lcd.print(lightSensorValue);
+
+  // Determine if the light is on or off based on the threshold
+  if (lightSensorValue > 250) {
+    lcd.print("On");
+    Serial.println("Light is ON");
+    // Do something when the light is on
+  } else {
+    lcd.print("Off");
+    Serial.println("Light is OFF");
+    // Do something when the light is off
+  }
     
   // Control hardware based on conditions
   if (temperatureValue > 30) {
@@ -142,5 +152,5 @@ void loop() {
     Serial.println("ThingSpeak update successful");
   } 
 // Delay, ensuring ThingSpeak update frequency is not less than 5 seconds
-delay(5000);
+delay(15000);
 }
