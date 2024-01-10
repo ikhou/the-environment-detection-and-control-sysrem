@@ -25,7 +25,7 @@ const int lightSensorPin = A2; //Light sensor
 const int buzzerPin = 2;              // buzzer
 const int fanPin = 3;                 // fan
 const int motorPin = 4;               // servo
-
+const int ledPin = 5;                 //led
 Servo myServo;// Create a Servo object
 
 WiFiClient client;
@@ -48,6 +48,7 @@ void setup() {
   //Initialize output pin modes
   pinMode(fanPin, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
+  pinMode(ledPin, OUTPUT);
   myServo.attach(motorPin); // Attach the servo to the pin
   //Connect to WiFi
   Serial.println("Attempting to connect to WiFi...");
@@ -111,10 +112,12 @@ void loop() {
   if (lightSensorValue > 250) {
     lcd.print("On");
     Serial.println("Light is ON");
+    digitalWrite(ledPin, LOW);
     // Do something when the light is on
   } else {
     lcd.print("Off");
     Serial.println("Light is OFF");
+    digitalWrite(ledPin, HIGH);
     // Do something when the light is off
   }
     
@@ -151,6 +154,6 @@ void loop() {
   if (writeResult == 200) {
     Serial.println("ThingSpeak update successful");
   } 
-// Delay, ensuring ThingSpeak update frequency is not less than 5 seconds
+// Delay, ensuring ThingSpeak update frequency is not less than 15 seconds
 delay(15000);
 }
