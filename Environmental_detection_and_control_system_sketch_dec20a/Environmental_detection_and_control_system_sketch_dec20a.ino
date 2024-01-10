@@ -96,6 +96,7 @@ void loop() {
   Serial.print(" \t\n");
 
   // Update LCD display
+  lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Temp: ");
   lcd.print(temperatureValue);
