@@ -1,0 +1,28 @@
+% Channel ID to read data from 
+readChannelID =  2392540; 
+% Temperature Field ID 
+TemperatureFieldID = 1; 
+% Humidity Field ID 
+HumidityFieldID = 2; 
+
+% Channel Read API Key   
+% If your channel is private, then enter the read API 
+% Key between the '' below:   
+readAPIKey = '3VVU5E1AJQJQK064'; 
+
+% Read Temperature and Humidity Data. Learn more about the THINGSPEAKREAD function by 
+% going to the Documentation tab on the right side pane of this page. 
+
+data = thingSpeakRead(readChannelID,'Fields',[TemperatureFieldID HumidityFieldID], ...
+                                               'NumPoints',300, ...
+                                               'ReadKey',readAPIKey); 
+
+temperatureData = data(:,1);
+
+% Read Humidity Data 
+humidityData = data(:,2);
+
+% Visualize the data
+scatter(temperatureData,humidityData);
+xlabel('Temperature');
+ylabel('Humidity'); 
