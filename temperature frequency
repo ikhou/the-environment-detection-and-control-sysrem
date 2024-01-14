@@ -1,0 +1,26 @@
+% Set ThingSpeak channel and field information
+channelID = 2392540; % Replace with your ThingSpeak channel ID
+temperatureFieldID = 1; % Replace with the field ID for temperature data
+numOfDataPoints = 60; % Set the number of data points to read
+readAPIKey = '3VVU5E1AJQJQK064'; % Replace with your ThingSpeak read API key
+
+% Read temperature data from ThingSpeak
+data = thingSpeakRead(channelID, 'Field', temperatureFieldID, 'NumPoints', numOfDataPoints, 'ReadKey', readAPIKey);
+
+% Extract temperature data
+temperatures = data(:, temperatureFieldID); % Use the correct field ID
+
+% Specify histogram bin edges, here set to the temperature value range
+binEdges = linspace(min(temperatures), max(temperatures), 20); % Adjust the desired number of bins
+
+% Create a new figure
+figure;
+
+% Create a plot to display the overall temperature frequency histogram
+subplot(1,1, 1);
+histogram(temperatures, 'BinEdges', binEdges);
+
+% Customize the first plot
+title('Temperature Frequency Plot');
+xlabel('Temperature (°C)');
+ylabel('Frequency');
